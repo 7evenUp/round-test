@@ -47,8 +47,10 @@ export const usersSlice = createSlice({
 
 export const { addUser } = usersSlice.actions
 
-export const usersSelectors = usersAdapter.getSelectors(
+const usersSelectors = usersAdapter.getSelectors(
   (state: RootState) => state.users
 )
+export const selectUserByUsername = (state: RootState, username: string) =>
+  usersSelectors.selectAll(state).find((u) => u.username === username)
 
 export default usersSlice.reducer

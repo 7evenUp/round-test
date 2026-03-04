@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { Navigate, useNavigate } from "react-router"
+import { Navigate } from "react-router"
 
 import { useAppDispatch, useAppSelector } from "@/redux/hooks"
 import { addUser } from "@/redux/slices/users"
@@ -8,17 +8,18 @@ import { login } from "@/redux/slices/auth"
 import Button from "@/shared/ui/Button"
 
 const Auth = () => {
-  const navigate = useNavigate()
-
   const [name, setName] = useState("")
 
   const dispatch = useAppDispatch()
   const isAuthorized = useAppSelector((state) => state.auth.isAuthorized)
 
   const onContinueClick = async () => {
-    dispatch(addUser(name.trim()))
-    dispatch(login())
-    navigate("/thread")
+    const username = name.trim()
+
+    if (!username) return
+
+    dispatch(addUser(username))
+    dispatch(login(username))
   }
 
   if (isAuthorized) return <Navigate to="/profile" />
