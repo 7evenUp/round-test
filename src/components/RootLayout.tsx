@@ -8,7 +8,7 @@ const RootLayout = () => {
       <Link to="/profile">profile</Link>
       <Link to="/123">123</Link>
 
-      <div className="flex flex-1 items-center justify-center">
+      <div className="mx-auto flex w-[320px] flex-1 flex-col items-center">
         <Outlet />
       </div>
     </main>

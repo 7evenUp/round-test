@@ -47,7 +47,7 @@ export const usersSlice = createSlice({
 
 export const { addUser } = usersSlice.actions
 
-const usersSelectors = usersAdapter.getSelectors(
+export const usersSelectors = usersAdapter.getSelectors(
   (state: RootState) => state.users
 )
 export const selectUserByUsername = (state: RootState, username: string) =>

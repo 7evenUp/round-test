@@ -13,6 +13,7 @@ import storage from "redux-persist/lib/storage"
 
 import authReducer from "./slices/auth"
 import usersReducer from "./slices/users"
+import postsReducer from "./slices/posts"
 
 const persistConfig = {
   key: "root",
@@ -24,6 +25,7 @@ const persistConfig = {
 const rootReducer = combineReducers({
   auth: authReducer,
   users: usersReducer,
+  posts: postsReducer,
 })
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)
