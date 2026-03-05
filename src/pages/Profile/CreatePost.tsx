@@ -22,9 +22,9 @@ const CreatePost = () => {
   )
 
   const onCreateClick = () => {
-    if (!content) return
+    if (content.trim().length === 0) return
 
-    dispatch(addPost({ content, userId: currentUser!.id }))
+    dispatch(addPost({ content: content.trim(), userId: currentUser!.id }))
   }
 
   return (
@@ -47,7 +47,10 @@ const CreatePost = () => {
           </span>
         </div>
         <DialogClose asChild>
-          <Button onClick={onCreateClick} disabled={content.length === 0}>
+          <Button
+            onClick={onCreateClick}
+            disabled={content.trim().length === 0}
+          >
             Опубликовать
           </Button>
         </DialogClose>

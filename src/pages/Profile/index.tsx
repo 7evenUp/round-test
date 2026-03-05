@@ -1,10 +1,13 @@
 import { useNavigate } from "react-router"
+import { LogOut } from "lucide-react"
 
 import CreatePost from "./CreatePost"
+import EditUsername from "./EditUsername"
 
-import { useAppSelector } from "@/redux/hooks"
+import { useAppDispatch, useAppSelector } from "@/redux/hooks"
 import { selectUserByUsername } from "@/redux/slices/users"
 import { selectPostsByUserId } from "@/redux/slices/posts"
+import { logout } from "@/redux/slices/auth"
 
 import Button from "@/shared/ui/Button"
 
@@ -13,6 +16,8 @@ import SubsInfo from "@/shared/components/SubsInfo"
 
 const Profile = () => {
   const navigate = useNavigate()
+
+  const dispatch = useAppDispatch()
 
   const { authenticatedUsername } = useAppSelector((state) => state.auth)
   const currentUser = useAppSelector((state) =>
@@ -24,6 +29,10 @@ const Profile = () => {
 
   if (!currentUser) return null
 
+  const onLogoutClick = () => {
+    dispatch(logout())
+  }
+
   return (
     <div className="flex w-full flex-col">
       <div className="flex items-center gap-2">
@@ -32,9 +41,19 @@ const Profile = () => {
             {currentUser.username[0].toUpperCase()}
           </p>
         </div>
+
         <p className="text-lg font-medium text-sky-300">
           {currentUser.username}
         </p>
+
+        <EditUsername />
+
+        <button
+          className="ml-auto flex size-8 items-center justify-center rounded-md border border-red-200/50 text-red-200 transition-colors hover:bg-red-950"
+          onClick={onLogoutClick}
+        >
+          <LogOut className="ml-0.5 size-5" />
+        </button>
       </div>
 
       <SubsInfo userId={currentUser.id} />

@@ -44,13 +44,27 @@ export const usersSlice = createSlice({
       state.nextId += 1
     },
 
-    // примеры на будущее
-    removeUser: usersAdapter.removeOne,
-    updateUser: usersAdapter.updateOne,
+    updateUser: (
+      state,
+      action: PayloadAction<{ oldUsername: string; newUsername: string }>
+    ) => {
+      const username = action.payload.newUsername.trim()
+      if (!username) return
+
+      const neededUser = Object.values(state.entities).find(
+        (user) => user.username === action.payload.oldUsername
+      )
+      if (!neededUser) return
+
+      usersAdapter.updateOne(state, {
+        id: neededUser.id,
+        changes: { username },
+      })
+    },
   },
 })
 
-export const { addUser } = usersSlice.actions
+export const { addUser, updateUser } = usersSlice.actions
 
 export const usersSelectors = usersAdapter.getSelectors(
   (state: RootState) => state.users

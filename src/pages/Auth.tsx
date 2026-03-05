@@ -7,7 +7,10 @@ import { login } from "@/redux/slices/auth"
 
 import Button from "@/shared/ui/Button"
 
-const MAX_NAME_LENGTH = 12
+import {
+  USERNAME_MIN_LENGTH,
+  USERNAME_MAX_LENGTH,
+} from "@/shared/constants/username-lengths"
 
 const Auth = () => {
   const [name, setName] = useState("")
@@ -37,17 +40,17 @@ const Auth = () => {
             onChange={(evt) => setName(evt.currentTarget.value)}
             className="flex h-10 w-full items-center rounded-xl border border-zinc-700 px-3 text-base/none outline-none placeholder:text-zinc-400 focus-within:border-zinc-500 hover:border-zinc-600/75 focus-within:hover:border-zinc-500"
             placeholder="Вот тут напиши..."
-            maxLength={MAX_NAME_LENGTH}
+            maxLength={USERNAME_MAX_LENGTH}
           />
           <span className="absolute top-1/2 right-3 -translate-y-1/2 text-xs text-zinc-400">
-            {name.length}/{MAX_NAME_LENGTH}
+            {name.length}/{USERNAME_MAX_LENGTH}
           </span>
         </div>
       </label>
       <Button
         className="w-full"
         onClick={onContinueClick}
-        disabled={name.trim().length <= 3}
+        disabled={name.trim().length < USERNAME_MIN_LENGTH}
       >
         Продолжить
       </Button>
