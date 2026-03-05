@@ -12,12 +12,17 @@ const usersAdapter = createEntityAdapter<User>()
 
 const initialState = usersAdapter.getInitialState(
   {
-    nextId: 4,
+    nextId: 9,
   },
   [
     { id: 1, username: "Artyom" },
     { id: 2, username: "Felix" },
     { id: 3, username: "John" },
+    { id: 4, username: "Marta" },
+    { id: 5, username: "Nikita" },
+    { id: 6, username: "Sofia" },
+    { id: 7, username: "Leo" },
+    { id: 8, username: "Diana" },
   ]
 )
 
