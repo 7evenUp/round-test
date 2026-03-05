@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { Link, useNavigate, useParams } from "react-router"
+import { Link, useLocation, useNavigate, useParams } from "react-router"
 import { ArrowLeft } from "lucide-react"
 
 import { useAppSelector } from "@/redux/hooks"
@@ -11,6 +11,9 @@ const PAGE_SIZE = 5
 
 const Followings = () => {
   const navigate = useNavigate()
+
+  const { pathname } = useLocation()
+
   const params = useParams()
   const userId = parseInt(params.userId!)
 
@@ -23,23 +26,27 @@ const Followings = () => {
   return (
     <div className="flex w-full flex-col gap-5">
       <button
-        className="flex items-center gap-2 text-sm font-bold text-white/75"
+        className="flex items-center gap-2 text-sm font-bold text-white/75 transition-colors hover:text-white/50"
         onClick={() => navigate(-1)}
       >
         <ArrowLeft className="size-4" />
         <p>Назад</p>
       </button>
+
       <div className="flex flex-col gap-2">
         {users.map((following) => (
           <Link
             key={following.id}
             to={`/profile/${following.id}`}
+            state={{ from: pathname }}
+            replace={true}
             className="flex h-12 items-center justify-center rounded-xl bg-sky-950/50 transition-colors hover:bg-sky-950/75"
           >
             {following.username}
           </Link>
         ))}
       </div>
+
       {hasNextPage && (
         <Button onClick={() => setPage((prev) => prev + 1)}>
           Загрузить ещё

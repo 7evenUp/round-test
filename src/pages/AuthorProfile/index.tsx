@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from "react-router"
+import { useLocation, useNavigate, useParams } from "react-router"
 
 import FollowButton from "./FollowButton"
 
@@ -13,6 +13,9 @@ import SubsInfo from "@/shared/components/SubsInfo"
 
 const AuthorProfile = () => {
   const navigate = useNavigate()
+
+  const { state } = useLocation()
+
   const params = useParams()
   const authorId = parseInt(params.authorId!)
 
@@ -49,9 +52,19 @@ const AuthorProfile = () => {
             <PostItem key={post.id} {...post} />
           ))}
       </div>
-      <Button className="mt-6" onClick={() => navigate("/thread")}>
-        Перейти в ленту
-      </Button>
+
+      {state !== null ? (
+        <Button
+          className="mt-6"
+          onClick={() => navigate(state.from, { replace: true })}
+        >
+          Назад
+        </Button>
+      ) : (
+        <Button className="mt-6" onClick={() => navigate("/thread")}>
+          Перейти в ленту
+        </Button>
+      )}
     </div>
   )
 }
