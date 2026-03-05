@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from "react-router"
+import { BrowserRouter, Navigate, Route, Routes } from "react-router"
 
 import Auth from "./pages/Auth"
 import Thread from "./pages/Thread"
@@ -18,6 +18,7 @@ const App = () => {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<RootLayout />}>
+            <Route index element={<Navigate to="/auth" replace />} />
             <Route path="/" element={<ProtectedRoute />}>
               <Route path="/thread" element={<Thread />} />
               <Route path="/profile" element={<Profile />} />
