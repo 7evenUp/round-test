@@ -1,3 +1,7 @@
+## Preview
+
+https://round-test.vercel.app/
+
 ## Запуск
 
 ```bash
